@@ -1,6 +1,7 @@
 import logging
 import re
 from enum import Enum
+from typing import List
 from utils.clean_string import clean_string
 
 # ignore "mypy" import error for coloredlogs and BeautifulSoup.
@@ -28,13 +29,13 @@ class PlaystationModel(Enum):
         return cls._value2member_map_[value]
 
 
-class PlaystationGame:
+class PlaystationNowGame:
     def __init__(self, name: str, console: PlaystationModel):
         self.name = name
         self.console = console
 
 
-def fetch_playstation_now() -> list[PlaystationGame]:
+def fetch_playstation_now() -> List[PlaystationNowGame]:
     playstation_now = 'https://www.playstation.com/fr-fr/ps-now/ps-now-games/#all-ps-now-games'
 
     page = requests.get(playstation_now)
@@ -43,7 +44,7 @@ def fetch_playstation_now() -> list[PlaystationGame]:
 
     soup = BeautifulSoup(page.text, 'html.parser')
 
-    game_list: list[PlaystationGame] = []
+    game_list: List[PlaystationNowGame] = []
 
     # games are first sorted by letter
     id_regex = re.compile("^tab-content-")
@@ -76,7 +77,7 @@ def fetch_playstation_now() -> list[PlaystationGame]:
                     if isinstance(first_child, NavigableString):
                         game_name = clean_string(first_child)
                         if len(game_name) > 0:
-                            game_list.append(PlaystationGame(
+                            game_list.append(PlaystationNowGame(
                                 name=game_name, console=game_console))
                     # sometime, Sony put the console type in a span (yes, it's weird !)
                     elif PlaystationModel.has_value(first_child.text):
@@ -89,7 +90,7 @@ def fetch_playstation_now() -> list[PlaystationGame]:
                         if isinstance(child, NavigableString):
                             game_name = clean_string(child)
                             if len(game_name) > 0:
-                                game_list.append(PlaystationGame(
+                                game_list.append(PlaystationNowGame(
                                     name=game_name, console=game_console))
 
     return game_list
