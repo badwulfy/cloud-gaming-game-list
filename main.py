@@ -178,12 +178,15 @@ def main(output_file: str = None):
         logger.debug(to_show)
 
         if f is not None:
-            f.write('{};{};{};{};{}\n'.format(game.name,
-                                              game.geforce_game is not None,
-                                              game.psnow_game is not None,
-                                              game.stadia_game is not None,
-                                              game.xcloud_game is not None,
-                                              ))
+            f.write(
+                '"{}";{};{};{};{}\n'
+                .format(game.name,
+                        game.geforce_game is not None,
+                        game.psnow_game is not None,
+                        game.stadia_game is not None,
+                        game.xcloud_game is not None,
+                        )
+            )
 
     logger.info("Total of unique games: {}".format(len(games_ordered)))
     if f is not None:
