@@ -37,12 +37,12 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Generate game list
       run: |
-        python main.py -o output.txt
+        python main.py -o output.csv
     - name: Archive output
       uses: actions/upload-artifact@v2
       with:
-        name: game-list.txt
-        path: output.txt
+        name: game-list.csv
+        path: output.csv
 
     # - name: Test with pytest
     #   run: |
