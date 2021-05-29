@@ -4,4 +4,4 @@
 
 Tool to get the list of games from all cloud gaming providers in one place
 
-[Download last export](https://nightly.link/badwulfy/cloud-gaming-game-list/workflows/python-package/main/game-list.csv.zip)
+[Download lastest export](https://nightly.link/badwulfy/cloud-gaming-game-list/workflows/python-package/main/game-list.csv.zip)
