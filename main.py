@@ -61,8 +61,8 @@ def normalize_key(name: str):
     if name in name_remapping:
         key = name_remapping[name]
 
-    key = key.lower().replace("™", "").replace("®", "").replace(
-        "©", "").replace(":", "").replace("'", "").replace("’", "")
+    key = key.lower().replace("™", "").replace("®", "").replace("©", "").replace(
+        ":", "").replace("'", "").replace("’", "").replace("_", " ")
 
     return key
 
