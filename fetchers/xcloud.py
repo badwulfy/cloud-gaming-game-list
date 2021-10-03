@@ -8,7 +8,7 @@ import coloredlogs
 import requests
 
 logger = logging.getLogger("XCLOUD")
-coloredlogs.install(level='INFO', logger=logger,
+coloredlogs.install(level='DEBUG', logger=logger,
                     fmt='%(name)s %(asctime)s %(levelname)s %(message)s')
 
 
@@ -33,7 +33,7 @@ def replace_url_query_string(url: str, params: Dict[str, str]):
 
 def fetch_xcloud() -> List[XCloudGame]:
     xcloud_url = "https://www.xbox.com/en-US/xbox-game-pass/games"\
-                 "/js/xgpcatPopulate-MWF.js"
+                 "/js/xgpcatPopulate-MWF2.js"
     r = requests.get(xcloud_url)
 
     if(r.status_code != 200):
