@@ -9,6 +9,8 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * *'
 
 jobs:
   build:
@@ -17,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -38,12 +40,12 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Generate game list
       run: |
-        python main.py -o output.csv
+        python main.py -o output$(gdate -I).csv
     - name: Archive output
       uses: actions/upload-artifact@v2
       with:
         name: game-list.csv
-        path: output.csv
+        path: output*.csv
 
     # - name: Test with pytest
     #   run: |
